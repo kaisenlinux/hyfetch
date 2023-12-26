@@ -1,0 +1,9 @@
+include hyfetch/scripts/*
+
+recursive-exclude tools *
+recursive-exclude .github *
+recursive-exclude .vscode *
+exclude .gitignore
+exclude .gitattributes
+exclude package.json
+exclude CONTRIBUTING.md

@@ -1,0 +1,6 @@
+hyfetch (1.4.11-1kaisen) kaisen-packages; urgency=medium
+
+  * Initial release
+  * Add a patch to add the new Kaisen logo
+
+ -- Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>  Sun, 24 Dec 2023 20:07:14 +0100

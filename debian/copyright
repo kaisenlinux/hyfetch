@@ -1,0 +1,11 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: hyfetch
+Source: https://github.com/hykilpikonna/hyfetch
+
+Files: *
+Copyright: Copyright (c) 2023 Asalea
+License: MIT
+
+Files: debian/*
+Copyright: 2023 Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>
+License: AGPL

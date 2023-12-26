@@ -1,0 +1,24 @@
+Source: hyfetch
+Section: utils
+Priority: optional
+Maintainer: Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>
+Rules-Requires-Root: no
+Build-Depends:
+ debhelper-compat (= 13), python3, python3-dev, python3-setuptools
+Standards-Version: 4.6.2
+Homepage: https://github.com/hykilpikonna/hyfetch
+Vcs-Browser: https://gitlab.com/kaisenlinux/packages/hyfetch
+Vcs-Git: https://gitlab.com/kaisenlinux/packages/hyfetch.git
+
+Package: hyfetch
+Architecture: all
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+Replaces: neofetch
+Conflicts: neofetch
+Description: Shows Linux System Information with Distribution Logo
+ Neofetch is a cross-platform and easy-to-use system information
+ command line script that collects your Linux system information
+ and display it on the terminal next to an image, it could be your
+ distributions logo or any ascii art of your choice.
