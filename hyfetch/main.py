@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import datetime
+import importlib.util
 import json
 import random
 import traceback
@@ -13,6 +14,7 @@ from . import termenv, neofetch_util, pride_month
 from .color_scale import Scale
 from .color_util import clear_screen
 from .constants import *
+from .font_logo import get_font_logo
 from .models import Config
 from .neofetch_util import *
 from .presets import PRESETS
@@ -209,12 +211,15 @@ def create_config() -> Config:
                 return def_lightness
 
             try:
-                lightness = int(lightness[:-1]) / 100 if lightness.endswith('%') else float(lightness)
+                if lightness.endswith('%') or int(lightness) > 1:
+                    lightness = int(lightness[:-1]) / 100 if lightness.endswith('%') else int(lightness) / 100
+                else:
+                    lightness = float(lightness)
                 assert 0 <= lightness <= 1
                 return lightness
 
             except Exception:
-                printc('&cUnable to parse lightness value, please input it as a decimal or percentage (e.g. 0.5 or 50%)')
+                printc('&cUnable to parse lightness value, please enter a lightness value such as 45%, .45, or 45')
 
     lightness = select_lightness()
     _prs = _prs.set_light_dl(lightness, light_dark)
@@ -243,7 +248,7 @@ def create_config() -> Config:
 
         # Random color schemes
         pis = list(range(len(_prs.unique_colors().colors)))
-        slots = list(set(re.findall('(?<=\\${c)[0-9](?=})', asc)))
+        slots = list(set(map(int, re.findall('(?<=\\${c)[0-9](?=})', asc))))
         while len(pis) < len(slots):
             pis += pis
         perm = {p[:len(slots)] for p in permutations(pis)}
@@ -286,9 +291,36 @@ def create_config() -> Config:
 
     update_title('Color alignment', color_alignment)
 
+    ##############################
+    # 6. Select *fetch backend
+    def select_backend():
+        clear_screen(title)
+        print_title_prompt('Select a *fetch backend')
+
+        # Check if fastfetch is installed
+        ff_path = fastfetch_path()
+
+        # Check if qwqfetch is installed (if the qwqfetch module can be imported)
+        has_qwqfetch = importlib.util.find_spec('qwqfetch') is not None
+
+        printc('- &bneofetch&r: Written in bash, &nbest compatibility&r on Unix systems')
+        printc('- &bfastfetch&r: Written in C, &nbest performance&r ' +
+               ('&c(Not installed)' if ff_path is None else f'&a(Installed at {ff_path})'))
+        printc('- &bqwqfetch&r: Pure python, &nminimal dependencies&r ' +
+               ('&c(Not installed)' if not has_qwqfetch else ''))
+        print()
+        
+        # Use fastfetch as the default backend if it is installed
+        def_backend = 'neofetch' if ff_path is None else 'fastfetch'
+
+        return literal_input('Your choice?', ['neofetch', 'fastfetch', 'qwqfetch'], def_backend)
+
+    backend = select_backend()
+    update_title('Selected backend', backend)
+
     # Create config
     clear_screen(title)
-    c = Config(preset, color_system, light_dark, lightness, color_alignment)
+    c = Config(preset, color_system, light_dark, lightness, color_alignment, backend)
 
     # Save config
     print()
@@ -306,7 +338,7 @@ def create_parser() -> argparse.ArgumentParser:
 
     parser.add_argument('-c', '--config', action='store_true', help=color(f'Configure hyfetch'))
     parser.add_argument('-C', '--config-file', dest='config_file', default=CONFIG_PATH, help=f'Use another config file')
-    parser.add_argument('-p', '--preset', help=f'Use preset', choices=list(PRESETS.keys()))
+    parser.add_argument('-p', '--preset', help=f'Use preset', choices=list(PRESETS.keys()) + ['random'])
     parser.add_argument('-m', '--mode', help=f'Color mode', choices=['8bit', 'rgb'])
     parser.add_argument('-b', '--backend', help=f'Choose a *fetch backend', choices=['qwqfetch', 'neofetch', 'fastfetch', 'fastfetch-old'])
     parser.add_argument('--args', help=f'Additional arguments pass-through to backend')
@@ -319,6 +351,7 @@ def create_parser() -> argparse.ArgumentParser:
 
     parser.add_argument('--distro', '--test-distro', dest='distro', help=f'Test for a specific distro')
     parser.add_argument('--ascii-file', help='Use a specific file for the ascii art')
+    parser.add_argument('--print-font-logo', action='store_true', help='Print the Font Logo / Nerd Font icon of your distro and exit')
 
     # Hidden debug arguments
     # --test-print: Print the ascii distro and exit
@@ -363,6 +396,10 @@ def run():
         print(get_distro_ascii())
         return
 
+    if args.print_font_logo:
+        print(get_font_logo())
+        return
+
     # Check if user provided alternative config path
     if not args.config_file == CONFIG_PATH:
         args.config_file = Path(os.path.abspath(args.config_file))
@@ -403,6 +440,10 @@ def run():
         config.backend = args.backend
     if args.args:
         config.args = args.args
+        
+    # Random preset
+    if config.preset == 'random':
+        config.preset = random.choice(list(PRESETS.keys()))
 
     # Override global color mode
     GLOBAL_CFG.color_mode = config.mode

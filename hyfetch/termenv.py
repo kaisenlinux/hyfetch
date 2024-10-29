@@ -18,7 +18,8 @@ def unix_detect_ansi_mode() -> AnsiMode | None:
 
     :return: Ansi mode
     """
-    if not sys.stdout.isatty():
+    # Check isatty attribute exist before calling it
+    if hasattr(sys.stdout, 'isatty') and not sys.stdout.isatty():
         return 'ansi'
 
     term = os.environ.get('TERM')
@@ -54,7 +55,7 @@ def windows_detect_ansi_mode() -> AnsiMode | None:
 
     :return: Ansi mode
     """
-    if not sys.stdout.isatty():
+    if hasattr(sys.stdout, 'isatty') and not sys.stdout.isatty():
         return 'ansi'
 
     if os.environ.get("ConEmuANSI") == "ON":
@@ -134,9 +135,11 @@ def unix_read_osc(seq: int) -> str:
             # Terminate with sequence terminator [\ or bell ^G
             if code.endswith('\x1b\\') or code.endswith('\a'):
                 break
-        signal.alarm(0)
     except IOError:
         pass
+    finally:
+        # Disable alarm
+        signal.alarm(0)
 
     # Reset terminal back to normal mode (previously set to raw mode)
     termios.tcsetattr(fd, termios.TCSADRAIN, settings)

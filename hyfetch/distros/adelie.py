@@ -2,7 +2,7 @@
 
 from . import AsciiArt
 
-adélie = AsciiArt(match=r'''"Adélie"* | "Adelie"*''', color='4 7 6', ascii=r"""
+adelie = AsciiArt(match=r'''"Adélie"* | "Adelie"*''', color='4 7 6', ascii=r"""
 ${c1}                 ${c3} ,-^-___
 ${c3}                /\\\///
 ${c2}refined.${c1}       /\\\\//

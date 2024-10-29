@@ -3,15 +3,12 @@
 # Stop on error
 set -e
 
-# Remove old build
-rm -rf dist/*
-rm -rf build/*
+# Get script directory
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-# Build
-python setup.py sdist bdist_wheel
+# Run build_pkg
+"$DIR/build_pkg.sh"
 
 # Check built files
 twine check dist/*
-
-# Upload
 twine upload dist/*

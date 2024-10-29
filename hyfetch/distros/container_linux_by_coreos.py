@@ -2,7 +2,7 @@
 
 from . import AsciiArt
 
-container_linux_by_coreos = AsciiArt(match=r'''"Container Linux by CoreOS"* | "Container_Linux"*''', color='4 7 1', ascii=r"""
+container_linux_by_coreos = AsciiArt(match=r'''"Container Linux by CoreOS"* | "Container_Linux"* | "Fedora CoreOS" | "CoreOS"*''', color='4 7 1', ascii=r"""
 ${c1}                .....
           .';:cccccccc:;'.
         ':ccccclc${c3}lllllllll${c1}cc:.

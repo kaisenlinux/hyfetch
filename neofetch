@@ -28,7 +28,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-version=7.3.11
+version=7.98.0
 
 # Fallback to a value of '5' for shells which support bash
 # but do not set the 'BASH_' shell variables (osh).
@@ -234,6 +234,15 @@ package_managers="on"
 # on:  '8 packages (flatpak-system), 9 packages (flatpak-user)'
 # off: '17 packages (flatpak)'
 package_separate="on"
+
+# Reduce output of packages list by not showing programming language package managers or Steam games
+#
+# Flag:    --package_minimal
+#
+# Example:
+# default:  'Packages: 1 (npm), 991 (emerge), 3 (steam), 23 (flatpak-system)'
+# minimal: 'Packages: 991 (emerge), 23 (flatpak-system)'
+package_minimal=""
 
 
 # Shell
@@ -573,6 +582,7 @@ disk_percent="on"
 # audacious
 # banshee
 # bluemindo
+# cider
 # clementine
 # cmus
 # deadbeef
@@ -857,36 +867,38 @@ image_source="auto"
 #
 # NOTE: Adélie, aerOS, Afterglow, AIX, AlmaLinux, Alpine, Alter, Amazon, AmogOS, Anarchy, Android,
 # Antergos, antiX, AOSC OS, Aperio GNU/Linux, Aperture, Apricity, Arch, ArchBox, Archcraft,
-# archcraft_ascii, archcraft_minimal, ARCHlabs, ArchMerge, ArchStrike, ArcoLinux, ArseLinux, Artix,
-# Arya, Asahi, AsteroidOS, astOS, Astra Linux, Athena, azos, Bedrock, BigLinux, Bitrig, BlackArch,
-# blackPanther, BLAG, BlankOn, BlueLight, Bodhi, bonsai, BSD, BunsenLabs, CachyOS, Calculate,
-# CalinixOS, Carbs, CBL-Mariner, CelOS, Center, CentOS, Chakra, ChaletOS, Chapeau, ChonkySealOS,
-# Chrom, Cleanjaro, Clear Linux OS, ClearOS, Clover, Cobalt, Condres, Container Linux by CoreOS,
-# CRUX, Crystal Linux, Cucumber, CutefishOS, CuteOS, CyberOS, dahlia, DarkOs, Darwin, Debian,
-# Deepin, DesaOS, Devuan, DietPi, digital UNIX, DracOS, DragonFly, Drauger, Droidian, Elementary,
-# Elive, EncryptOS, EndeavourOS, Endless, Enso, EuroLinux, EvolutionOS, Exherbo, Exodia Predator OS,
-# Fedora, FemboyOS, Feren, Finnix, Floflis, FreeBSD, FreeMiNT, Frugalware, Funtoo, GalliumOS,
-# Garuda, Gentoo, GhostBSD, glaucus, gNewSense, GNOME, GNU, GoboLinux, GrapheneOS, Grombyang, Guix,
-# Haiku, HamoniKR, HarDClanZ, Hash, Huayra, Hybrid, HydroOS, Hyperbola, iglunix, instantOS, Interix,
-# IRIX, Itc, januslinux, Kaisen, Kali, KaOS, KDE, Kibojoe, Kogaion, Korora, KrassOS, KSLinux,
-# Kubuntu, LainOS, LangitKetujuh, LaxerOS, LEDE, LibreELEC, Linspire, Linux, Linux Lite, Linux Mint,
-# Linux Mint Old, Live Raizo, LMDE, Lubuntu, Lunar, mac, Mageia, MagpieOS, MainsailOS, Mandriva,
-# Manjaro, MassOS, MatuusOS, Maui, Meowix, Mer, Minix, MIRACLE LINUX, MX, Namib, NekOS, Neptune,
-# NetBSD, Netrunner, Nitrux, NixOS, Nobara, NomadBSD, Nurunner, NuTyX, Obarun, OBRevenge, OmniOS,
-# Open Source Media Center, OpenBSD, openEuler, OpenIndiana, openKylin, openmamba, OpenMandriva,
-# OpenStage, openSUSE, openSUSE Leap, openSUSE Tumbleweed, OPNsense, Oracle, orchid, OS Elbrus,
-# PacBSD, Panwah, Parabola, parch, Pardus, Parrot, Parsix, PCBSD, PCLinuxOS, pearOS, Pengwin,
-# Pentoo, Peppermint, Peropesis, phyOS, PikaOS, Pisi, PNM Linux, Pop!_OS, Porteus, PostMarketOS,
-# Profelis SambaBOX, Proxmox, PuffOS, Puppy, PureOS, Q4OS, Qubes, Qubyt, Quibian, Radix, Raspbian,
-# ravynOS, Reborn OS, Red Star, Redcore, Redhat, Refracted Devuan, Regata, Regolith, RhaymOS, rocky,
-# Rosa, Sabayon, sabotage, Sailfish, SalentOS, Salient OS, Salix, Sasanqua, Scientific, semc,
-# Septor, Serene, SharkLinux, ShastraOS, Siduction, SkiffOS, Slackel, Slackware, SliTaz, SmartOS,
-# Soda, Solus, Source Mage, Sparky, Star, SteamOS, Stock Linux, Sulin, SunOS, SwagArch, t2, Tails,
-# TeArch, TorizonCore, Trisquel, Twister, Ubuntu, Ubuntu Budgie, Ubuntu Cinnamon, Ubuntu Kylin,
-# Ubuntu MATE, Ubuntu Studio, Ubuntu Sway, Ubuntu Touch, Ubuntu-GNOME, ubuntu_old02, Ultramarine
-# Linux, unicodearch, Univalent, Univention, Uos, UrukOS, uwuntu, Vanilla, Venom, VNux, Void,
-# VzLinux, wii-linux-ngx, Windows, Windows 10, Windows 11, Windows95, Wrt, Xenia, Xenia2, XFerience,
-# Xray_OS, Xubuntu, yiffOS, Zorin have ascii logos.
+# archcraft_ascii, archcraft_minimal, ARCHlabs, ArchMerge, ArchStrike, ArcoLinux, Arkane, ArseLinux,
+# Artix, Arya, Asahi, AsteroidOS, astOS, Astra Linux, Athena, azos, Bedrock, BigLinux,
+# BigLinux_large, Bitrig, BlackArch, BlackMesa, blackPanther, BLAG, BlankOn, BlueLight, Bodhi,
+# bonsai, BSD, BunsenLabs, CachyOS, Calculate, CalinixOS, Carbs, CBL-Mariner, CelOS, Center, CentOS,
+# Chakra, ChaletOS, Chapeau, Chimera, ChonkySealOS, Chrom, Cleanjaro, Clear Linux OS, ClearOS,
+# Clover, Cobalt, Condres, Container Linux by CoreOS, CRUX, Crystal Linux, Cucumber, CutefishOS,
+# CuteOS, CyberOS, dahlia, DarkOs, Darwin, Debian, Deepin, DesaOS, Devuan, DietPi, digital UNIX,
+# DracOS, DragonFly, Drauger, Droidian, Elementary, Elive, EncryptOS, EndeavourOS, Endless, Enso,
+# EuroLinux, EvolutionOS, eweOS, Exherbo, Exodia Predator OS, Fedora, Fedora Kinoite, Fedora
+# Sericea, Fedora Silverblue, Fedora_unicode, FemboyOS, Feren, Finnix, Floflis, FreeBSD, FreeMiNT,
+# Frugalware, Funtoo, Furreto, GalliumOS, Garuda, Gentoo, GhostBSD, glaucus, gNewSense, GNOME, GNU,
+# GoboLinux, GrapheneOS, Grombyang, Guix, Haiku, HamoniKR, HarDClanZ, Hash, Huayra, Hybrid, HydroOS,
+# Hyperbola, iglunix, instantOS, Interix, IRIX, Ironclad, Itc, januslinux, Kaisen, Kali, KaOS, KDE,
+# Kibojoe, Kogaion, Korora, KrassOS, KSLinux, Kubuntu, LainOS, LangitKetujuh, LaxerOS, LEDE,
+# LibreELEC, Linspire, Linux, Linux Lite, Linux Mint, Linux Mint Old, LinuxFromScratch, Live Raizo,
+# LMDE, Lubuntu, Lunar, mac, MacaroniOS, Mageia, Magix, MagpieOS, MainsailOS, Mandriva, Manjaro,
+# MassOS, MatuusOS, Maui, Mauna, Meowix, Mer, Minix, MIRACLE LINUX, MX, Namib, NekOS, Neptune,
+# NetBSD, Netrunner, Nitrux, NixOS, nixos_colorful, Nobara, NomadBSD, Nurunner, NuTyX, Obarun,
+# OBRevenge, OmniOS, Open Source Media Center, OpenBSD, openEuler, OpenIndiana, openKylin,
+# openmamba, OpenMandriva, OpenStage, openSUSE, openSUSE Leap, openSUSE Tumbleweed, OPNsense,
+# Oracle, orchid, OS Elbrus, PacBSD, Panwah, Parabola, parch, Pardus, Parrot, Parsix, PCBSD,
+# PCLinuxOS, pearOS, Pengwin, Pentoo, Peppermint, Peropesis, phyOS, PikaOS, Pisi, PNM Linux,
+# Pop!_OS, Porteus, PostMarketOS, Profelis SambaBOX, Proxmox, PuffOS, Puppy, PureOS, Q4OS, Qubes,
+# Qubyt, Quibian, Radix, Raspbian, ravynOS, Reborn OS, Red Star, Redcore, Redhat, Refracted Devuan,
+# Regata, Regolith, RhaymOS, rocky, Rosa, Sabayon, sabotage, Sailfish, SalentOS, Salient OS, Salix,
+# Sasanqua, Scientific, semc, Septor, Serene, SharkLinux, ShastraOS, Siduction, SkiffOS, Slackel,
+# Slackware, SliTaz, SmartOS, Soda, Solus, Source Mage, Sparky, Star, SteamOS, Stock Linux, Sulin,
+# SunOS, SwagArch, t2, Tails, Tatra, TeArch, TorizonCore, Trisquel, Twister, Ubuntu, Ubuntu Budgie,
+# Ubuntu Cinnamon, Ubuntu Kylin, Ubuntu MATE, Ubuntu Studio, Ubuntu Sway, Ubuntu Touch, Ubuntu-
+# GNOME, ubuntu_old02, Ultramarine Linux, unicodearch, Univalent, Univention, Uos, UrukOS, uwuntu,
+# Vanilla, Venom, VNux, Void, VzLinux, wii-linux-ngx, Windows, Windows 10, Windows 11, Windows95,
+# Wrt, Xenia, Xenia2, XFerience, Xray_OS, Xubuntu, yiffOS, Zorin have ascii logos.
 
 # NOTE: arch, dragonfly, Fedora, LangitKetujuh, nixos, redhat, Ubuntu have 'old' logo variants, use
 # {distro}_old to use them.
@@ -1030,6 +1042,7 @@ get_os() {
         IRIX*)    os=IRIX ;;
         FreeMiNT) os=FreeMiNT ;;
         Interix)  os=Interix ;;
+        Ironclad) os=Ironclad;;
         OSF1)     os=digitalUNIX ;;
 
         Linux|GNU*)
@@ -1057,6 +1070,7 @@ get_distro() {
     [[ $distro ]] && return
 
     case $os in
+     Ironclad) distro=Ironclad ;;
         Linux|BSD|MINIX)
             if [[ -f /bedrock/etc/bedrock-release && -z $BEDROCK_RESTRICT ]]; then
                 case $distro_shorthand in
@@ -1171,10 +1185,21 @@ get_distro() {
                     esac
                 fi
 
+            elif type -p anise >/dev/null; then
+                for file in /etc/lsb-release /etc/os-release ; do
+                    source "$file"
+                done
+
+                case $distro_shorthand in
+                    on|tiny) distro="${NAME:-${DISTRIB_DESCRIPTION:-MacaroniOS}}" ;;
+                    *)
+                        distro="${NAME:-${DISTRIB_DESCRIPTION:-MacaroniOS}} ${VERSION:-${DISTRIB_RELEASE}}"
+                esac
+
             elif type -p lsb_release >/dev/null; then
                 # Debian does not include .x versions in /etc/os-version, but does in debian_version
                 # So if that file exists, and we are not *buntu, build name from there
-                if [[ -f /etc/debian_version ]] && [[ $distro_shorthand != *"buntu"* ]]; then
+                if [[ -f /etc/debian_version ]] && [[ $(lsb_release -si) != *"buntu"* ]] && [[ $(lsb_release -si) != *"neon"* ]]; then
                     . /etc/os-release
                     case $distro_shorthand in
                         on)   distro="${NAME}" ;;
@@ -1388,6 +1413,19 @@ get_distro() {
                     distro="Floflis"
                 fi
             fi
+
+            # Get Fedora immutable spin.
+            if [[ $distro == "Fedora"* ]]; then
+                case $VARIANT in
+                    "CoreOS" | "Kinoite" | "Sericea" | "Silverblue")
+                        case $distro_shorthand in
+                            on)   distro="Fedora $VARIANT $VERSION_ID" ;;
+                            tiny) distro="$VARIANT";;
+                            *)    distro="Fedora $VARIANT $OSTREE_VERSION" ;;
+                        esac
+                        ;;
+                esac
+            fi
         ;;
 
         "Mac OS X"|"macOS")
@@ -1548,7 +1586,7 @@ get_model() {
         ;;
 
         "Mac OS X"|"macOS"|"ravynOS")
-            if [ "$(arch)" != "arm64" ] && [[ $(kextstat | grep -F -e "FakeSMC" -e "VirtualSMC" -e "Lilu") != "" ]]; then
+            if [ "$(arch)" != "arm64" ] && [[ $(kextstat | grep -F -e "FakeSMC" -e "VirtualSMC") != "" ]]; then
                 model="Hackintosh (SMBIOS: $(sysctl -n hw.model))"
             else
                 if [[ $osx_version == 10.[4-5]* ]]; then
@@ -1562,8 +1600,8 @@ get_model() {
 
                 case $model in
                     Mac14,15):              "MacBook Air (15-inch, M2, 2023)" ;;
-                    Mac14,14):              "Mac Studio (M2 Max, 2023)" ;;
-                    Mac14,13):              "Mac Studio (M2 Ultra, 2023)" ;;
+                    Mac14,14):              "Mac Studio (M2 Ultra, 2023)" ;;
+                    Mac14,13):              "Mac Studio (M2 Max, 2023)" ;;
                     Mac14,8):               "Mac Pro (2023)" ;;
                     Mac14,6 | Mac14,10):    "MacBook Pro (16-inch, 2023)" ;;
                     Mac14,5 | Mac14,9):     "MacBook Pro (14-inch, 2023)" ;;
@@ -1662,6 +1700,34 @@ get_model() {
                     iMac11,2):              "iMac (21.5-inch, Mid 2010)" ;;
                     iMac10,1):              "iMac (27/21.5-inch, Late 2009)" ;;
                     iMac9,1):               "iMac (24/20-inch, Early 2009)" ;;
+                    PowerMac12,1):          "iMac G5 (20/17-inch, iSight)" ;;
+                    PowerMac11,2):          "Power Macintosh G5" ;;
+                    PowerMac8,2):           "iMac G5 (20/17-inch, ALS)" ;;
+                    PowerMac8,1):           "iMac G5 (20/17-inch)" ;;
+                    PowerMac7,[2-3]):       "Power Macintosh G5 (PCI/PCI-X)" ;;
+                    PowerMac6,4):           "eMac G4" ;;
+                    PowerMac6,3):           "iMac G4 (20/17/15-inch, USB 2.0)" ;;
+                    PowerMac6,1):           "iMac G4 (17-inch, Flat Panel)" ;;
+                    PowerMac5,1):           "Power Macintosh G4 Cube" ;;
+                    PowerMac4,5):           "iMac G4 (17-inch, Flat Panel)" ;;
+                    PowerMac4,4):           "eMac G4" ;;
+                    PowerMac4,1):           "iMac G3" ;;
+                    PowerMac3,6):           "Power Macintosh G4 (MDD/FW800)" ;;
+                    PowerMac3,5):           "Power Macintosh G4 (Quicksilver)" ;;
+                    PowerMac3,4):           "Power Macintosh G4 (Digital Audio)" ;;
+                    PowerMac3,3):           "Power Macintosh G4 (Gigabit)" ;;
+                    PowerMac3,1):           "Power Macintosh G4 (AGP)" ;;
+                    PowerBook6,8 | PowerBook6,4 | PowerBook6,1):    "PowerBook G4 (17/15/12-inch, Al)" ;;
+                    PowerBook6,7 | PowerBook6,5 | PowerBook6,3):    "iBook G4 (14/12-inch)" ;;
+                    PowerBook6,2):          "PowerBook G4 (12-inch, DVI - Al)" ;;
+                    PowerBook5,[8-9]):      "PowerBook G4 (17/15-inch, DLSD/HR - Al)" ;;
+                    PowerBook5,[3-7] | PowerBook5,1):               "PowerBook G4 (17/15/12-inch, Al)" ;;
+                    PowerBook5,2):          "PowerBook G4 (15-inch, FW800 - Al)" ;;
+                    PowerBook4,[1-3]):      "iBook G3" ;;
+                    PowerBook3,5):          "PowerBook G4 (Ti)" ;;
+                    PowerBook3,4):          "PowerBook G4 (DVI - Ti)" ;;
+                    PowerBook3,3):          "PowerBook G4 (Gigabit - Ti)" ;;
+                    PowerBook3,2):          "PowerBook G4 (Original - Ti)" ;;
                     *):                     "$model" ;;
                 esac
 
@@ -1891,6 +1957,9 @@ get_kernel() {
 get_uptime() {
     # Get uptime in seconds.
     case $os in
+        Ironclad)
+            s=$(uptime -s)
+        ;;
         Linux|Windows|MINIX)
             if [[ -r /proc/uptime ]]; then
                 s=$(< /proc/uptime)
@@ -2036,10 +2105,54 @@ get_packages() {
         }
     }
 
-    # OS-independent package managers.
-    has pipx  && tot pipx list --short
-    has cargo && _cargopkgs="$(cargo install --list | grep -v '^ ')" && tot echo "$_cargopkgs"
-    has npm   && pkgs_h=1 tot npm list -g --depth=0
+    # Programming language package managers.
+    if [[ -z "$package_minimal" ]]; then
+        has pipx  && tot pipx list --short
+        has pip   && tot pip freeze
+        has cargo && _cargopkgs="$(cargo install --list | grep -v '^ ')" && tot echo "$_cargopkgs"
+
+        # Special case for npm: If has npm, we should list folders under node_modules instead of using npm list.
+        # This is because npm list is very slow (2s)
+        if has npm; then
+            # Try to apply heuristics to find the global directory.
+            if [[ -d /usr/lib/node_modules ]]; then
+                dir /usr/lib/node_modules/*/
+            elif [[ -d /usr/local/lib/node_modules ]]; then
+                dir /usr/local/lib/node_modules/*/
+            else
+                # If neither exist, use npm root -g to get the global directory.
+                # (still ~10x faster than npm list)
+                npm_global="$(npm root -g)"
+                [[ -d "$npm_global" ]] && dir "$npm_global"/*/
+
+                # This may not work in WSL2 (if npm is installed on Windows, not WSL).
+                # However, if npm is not installed on this WSL subsystem, it doesn't really count
+                # as a package manager for this subsystem, so let's ignore this case.
+            fi
+        fi
+
+        # Relatively the same for pnpm
+        if has pnpm; then
+            # Try to apply heuristics to find the global directory.
+            PNPM_P="local/share/pnpm/global/5/node_modules"
+            if [[ -d "$HOME/.$PNPM_P" ]]; then
+                dir "$HOME/.$PNPM_P"/*/
+            elif [[ -d "/usr/$PNPM_P" ]]; then
+                dir "/usr/$PNPM"/*/
+            else
+                # If neither exist, use pnpm root -g to get the global directory.
+                pnpm_global="$(pnpm root -g)"
+                [[ -d "$pnpm_global" ]] && dir "$pnpm_global"/*/
+            fi
+        fi
+    fi
+
+    if has pkgx && [[ -d "$HOME/.local/bin" ]]; then
+        # https://github.com/pkgxdev/pkgx/issues/985#issuecomment-2080999008
+        _pkgxpkgs="$(grep -rIhoP 'exec pkgx \+\K[^ ]+' "$HOME/.local/bin" | sort -u)"
+        tot echo "$_pkgxpkgs"
+        unset _pkgxpkgs
+    fi
 
     # OS-specific package managers.
     case $os in
@@ -2068,8 +2181,19 @@ get_packages() {
             has bulge      && tot bulge list
             has pm         && tot-safe pm list packages
             has evox       && tot cat /var/evox/packages/DB
-            has squirrel   && tot ls /var/packages
-            has tea        && tot find "$HOME/.tea" -maxdepth 2 -mindepth 2 -type d
+            has squirrel   && tot ls -w 1 /var/packages
+            has anise      && tot anise s --installed
+            has am         && pac "$(am -f --less)"
+            # Bonsai refers to the now archived repo https://github.com/mitchweaver/bonsai
+            has bonsai     && tot bonsai list
+            # Rad refers to https://github.com/glaucuslinux/rad
+            has rad        && tot rad -cl
+            # Rad was previously called 'Radula', some systems may still have the old name.
+            has radula     && tot radula -cl
+            # https://github.com/birb-linux/birb
+            has birb       && tot birb --list-installed
+            
+            has port       && pkgs_h=1 tot port installed && ((packages-=1))
 
             # Using the dnf package cache is much faster than rpm.
             if has dnf && type -p sqlite3 >/dev/null && [[ -f /var/cache/dnf/packages.db ]]; then
@@ -2104,18 +2228,29 @@ get_packages() {
             shopt -u nullglob
             }
 
-            # Steam games
-            STEAM_P=".local/share/Steam/steamapps/common"
-            if [[ -d "$HOME/$STEAM_P" ]]; then
-                manager=steam && dir "$HOME/$STEAM_P/*/"
-            elif [[ -d "$HOME/.var/app/com.valvesoftware.Steam/$STEAM_P" ]]; then
-                manager=steam && dir "$HOME/.var/app/com.valvesoftware.Steam/$STEAM_P/*/"
-            elif [[ -d "$HOME/.steam/steam/steamapps/common" ]]; then
-                manager=steam && dir "$HOME/.steam/steam/steamapps/common/*/"
+            if [[ -z "$package_minimal" ]]; then
+                # Steam games
+                STEAM_P=".local/share/Steam/steamapps/common"
+                if [[ -d "$HOME/$STEAM_P" ]]; then
+                    manager=steam && dir "$HOME/$STEAM_P/*/"
+                elif [[ -d "$HOME/.var/app/com.valvesoftware.Steam/$STEAM_P" ]]; then
+                    manager=steam && dir "$HOME/.var/app/com.valvesoftware.Steam/$STEAM_P/*/"
+                elif [[ -d "$HOME/.steam/steam/steamapps/common" ]]; then
+                    manager=steam && dir "$HOME/.steam/steam/steamapps/common/*/"
+                fi
             fi
 
             # Other (Needs complex command)
             has kpm-pkg && ((packages+=$(kpm  --get-selections | grep -cv deinstall$)))
+
+            nix-user-pkgs() {
+                if [ -d ~/.nix-profile ]; then
+                    nix-store -qR ~/.nix-profile
+                elif [ -d "$XDG_STATE_HOME/nix/profile" ]; then
+                    nix-store -qR "$XDG_STATE_HOME/nix/profile"
+                fi
+                nix-store -qR /etc/profiles/per-user/"$USER"
+            }
 
             # Separate system and user packages
             if [[ $package_separate == on ]]; then
@@ -2126,10 +2261,6 @@ get_packages() {
                 }
 
                 has nix-store && {
-                    nix-user-pkgs() {
-                        nix-store -qR ~/.nix-profile
-                        nix-store -qR /etc/profiles/per-user/"$USER"
-                    }
                     manager=nix-system  && tot nix-store -qR /run/current-system/sw
                     manager=nix-user    && tot nix-user-pkgs
                     manager=nix-default && tot nix-store -qR /nix/var/nix/profiles/default
@@ -2151,8 +2282,7 @@ get_packages() {
 
                 has nix-store && {
                     nix-all() {
-                        nix-store -qR ~/.nix-profile
-                        nix-store -qR /etc/profiles/per-user/"$USER"
+                        nix-user-pkgs
                         nix-store -qR /run/current-system/sw
                         nix-store -qR /nix/var/nix/profiles/default
                     }
@@ -2194,9 +2324,19 @@ get_packages() {
             has snap && ps -e | grep -qFm 1 snapd >/dev/null && \
             pkgs_h=1 tot snap list && ((packages-=1))
 
-            # This is the only standard location for appimages.
-            # See: https://github.com/AppImage/AppImageKit/wiki
-            manager=appimage && has appimaged && dir ~/.local/bin/*.[Aa]pp[Ii]mage
+            # Get AppImageLauncher Application directory, 
+            # See: https://github.com/TheAssassin/AppImageLauncher/wiki/Configuration#settings-file
+            manager=appimage && has appimaged || [ -f "$HOME"/.config/appimagelauncher.cfg ] &&
+            if [ -f "$HOME"/.config/appimagelauncher.cfg ]; then
+                ALDIR=$(grep "destination" "$HOME/.config/appimagelauncher.cfg" --color=never | sed 's/^.*= //')
+                # shellcheck disable=SC2010
+                [ "$(ls -w 1 "$ALDIR" | grep -ic "AppImage")" = "0" ] && unset ALDIR
+            fi &&
+            if find "$HOME"/.local/bin/ -type f -name '*.[Aa]pp[Ii]mage' -print -quit | grep -q .; then
+                AIDIR="$HOME/.local/bin"
+            fi &&
+            dir "$AIDIR/*.[Aa]pp[Ii]mage \
+                $ALDIR/*.[Aa]pp[Ii]mage" 
 
             # Has devbox & is initialized
             has devbox && [[ "$(devbox global list)" != *"not activated"* ]] && tot devbox global list
@@ -2207,7 +2347,6 @@ get_packages() {
             has brew  && dir "$(brew --cellar)/* $(brew --caskroom)/*"
             has pkgin && tot pkgin list
             has dpkg  && tot dpkg-query -f '.\n' -W
-            has tea   && tot find "$HOME/.tea" -maxdepth 2 -mindepth 2 -type d
 
             has nix-store && {
                 nix-user-pkgs() {
@@ -2260,15 +2399,25 @@ get_packages() {
         ;;
     esac
 
+    # Count the total number of packages.
+    total_packages=0
+    for manager_info in "${managers[@]}"; do
+        count=$(echo "$manager_info" | awk '{print $1}')
+        total_packages=$((total_packages + count))
+    done
+
     if ((packages == 0)); then
         unset packages
-
     elif [[ $package_managers == on ]]; then
+        # List individual package manager counts
         printf -v packages '%s, ' "${managers[@]}"
         packages=${packages%,*}
-
     elif [[ $package_managers == tiny ]]; then
-        packages+=" (${manager_string%,*})"
+        # Show total count with package manager names
+        packages="$total_packages (${manager_string%,*})"
+    else
+        # Default to showing just the total count
+        packages="$total_packages"
     fi
 
     packages=${packages/pacman-key/pacman}
@@ -2343,7 +2492,7 @@ get_editor() {
     [[ -z "$editor_full_path" ]] && return
 
     # Actually obtain the full path
-    editor_full_path="$(which "${editor_full_path}" 2>/dev/null)"
+    editor_full_path="$(command -v "${editor_full_path}" 2>/dev/null)"
 
     # Resolve symlink and get the original name
     [[ -L "$editor_full_path" ]] && editor_full_path="$(readlink -f "$editor_full_path")"
@@ -2358,7 +2507,7 @@ get_editor() {
 
     # Obtain editor version
     case ${editor_name:=${editor_full_path##*/}} in
-        nano|vim|micro|emacs)
+        nano|vim|nvim|micro|emacs)
             editor_v=$("$editor_full_path" --version 2>&1)
         ;;
         kak)
@@ -2473,9 +2622,20 @@ get_de() {
     esac
 
     ((${KDE_SESSION_VERSION:-0} >= 4)) && de=${de/KDE/Plasma}
+    ((${KDE_SESSION_VERSION:-0} >= 6)) && de=${de/Plasma/Plasma6}
 
     if [[ $de_version == on && $de ]]; then
         case $de in
+            Plasma6*)
+                       de_ver=$(plasmashell --version)
+                       kf_ver=$(kinfo)
+                       qt_ver=${kf_ver/Kernel*}
+                       qt_ver=${qt_ver/*:}
+                       qt_ver=$(trim "$qt_ver")
+                       kf_ver=${kf_ver/Qt*}
+                       kf_ver=${kf_ver/*:}
+                       kf_ver=$(trim "$kf_ver")
+            ;;
             Plasma*)
                        de_ver=$(plasmashell --version)
                        kf_ver=$(kf5-config --version)
@@ -2509,7 +2669,7 @@ get_de() {
 
         de+=" $de_ver"
 
-        [[ $de == "Plasma"* ]] && de+=" [KF5 $kf_ver] [Qt $qt_ver]"
+        [[ $de == "Plasma"* ]] && de="Plasma $de_ver [KF $kf_ver] [Qt $qt_ver]"
     fi
 
     # TODO:
@@ -2840,6 +3000,9 @@ get_wm_theme() {
 
 get_cpu() {
     case $os in
+        "Ironclad")
+            cpu="$(cpuinfo -n) ($(cpuinfo -c)) @ $(cpuinfo -f)"
+            ;;
         "Linux" | "MINIX" | "Windows")
             # Get CPU name.
             cpu_file="/proc/cpuinfo"
@@ -3299,15 +3462,6 @@ get_gpu() {
 
             IFS=$'\n' read -d "" -ra gpus <<< "$gpu_cmd"
 
-            # Remove duplicate Intel Graphics outputs.
-            # This fixes cases where the outputs are both
-            # Intel but not entirely identical.
-            #
-            # Checking the first two array elements should
-            # be safe since there won't be 2 intel outputs if
-            # there's a dedicated GPU in play.
-            [[ "${gpus[0]}" == *Intel* && "${gpus[1]}" == *Intel* ]] && unset -v "gpus[0]"
-
             for gpu in "${gpus[@]}"; do
                 # GPU shorthand tests.
                 [[ "$gpu_type" == "dedicated" && "$gpu" == *Intel* ]] || \
@@ -3458,7 +3612,7 @@ get_gpu() {
 
         "Haiku")
             gpu="$(listdev | grep -A2 -F 'device Display controller' |\
-                   awk -F':' '/device beef/ {print $2}')"
+                   awk -F':' '/device [^D]/ {print $2}')"
         ;;
 
         *)
@@ -3614,6 +3768,10 @@ get_memory() {
             mem_used="$((mem_total - mem_free))"
         ;;
 
+        "Ironclad")
+            mem_free="$(( $(showmem -f) * 1000 ))"
+            mem_used="$(( $(showmem -u) * 1000 ))"
+            mem_total="$(( $(showmem -t) * 1000 ))"
     esac
 
     [[ "$memory_percent" == "on" ]] && ((mem_perc=mem_used * 100 / mem_total))
@@ -3694,11 +3852,18 @@ get_network() {
             ActiveNetwork=$(route get default | grep interface | awk '{print $2}')
             ActiveNetworkName=$(networksetup -listallhardwareports | grep -B 1 "$ActiveNetwork" | awk '/Hardware Port/{print}'| awk '{print $3}')
             if [[ $ActiveNetworkName == "Wi-Fi" ]]; then
-                LinkSpeed="$(/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I | awk '/maxRate/{print}' | awk '{print $2}' )Mbps"
+                temp_plist="/tmp/neofetch_system_profiler_SPAirPortDataType.xml" # PlistBuddy doesn't support reading from /dev/stdin
+                system_profiler -detailLevel basic -xml SPAirPortDataType > "$temp_plist"
+
+                PhyMode="$(PlistBuddy -c "Print 0:_items:0:spairport_airport_interfaces:0:spairport_current_network_information:spairport_network_phymode" "$temp_plist")" 2>/dev/null
+                LinkSpeed="$(PlistBuddy -c "Print 0:_items:0:spairport_airport_interfaces:0:spairport_current_network_information:spairport_network_rate" "$temp_plist")" 2>/dev/null
+                [ -n "$LinkSpeed" ] && LinkSpeed="$LinkSpeed Mbps"
             else
                 LinkSpeed="$(ifconfig "$ActiveNetwork" | awk '/media/{print}' | sed -E "s/.*\((.*)\).*/\1/")"
             fi
-            network="$ActiveNetwork: $ActiveNetworkName@$LinkSpeed"
+            network="$ActiveNetwork: $ActiveNetworkName"
+            [ -n "$PhyMode" ] && network+=" ($PhyMode)"
+            [ -n "$LinkSpeed" ] && network+=" @ $LinkSpeed"
         ;;
     esac
     while IFS=' ' read -r n i; do
@@ -3740,6 +3905,7 @@ get_song() {
         "audacious"
         "banshee"
         "bluemindo"
+        "cider"
         "clementine"
         "cmus"
         "deadbeef"
@@ -3833,6 +3999,7 @@ get_song() {
         "tidal-hifi"*)    get_song_dbus "tidal-hifi" ;;
         "olivia"*)        get_song_dbus "olivia" ;;
         "exaile"*)        get_song_dbus "exaile" ;;
+        "cider"*)         get_song_dbus "cider2" ;;
         "netease-cloud-music"*)        get_song_dbus "netease-cloud-music" ;;
         "plasma-browser-integration"*) get_song_dbus "plasma-browser-integration" ;;
         "io.elementary.music"*)        get_song_dbus "Music" ;;
@@ -4439,10 +4606,10 @@ get_term() {
     # Workaround for macOS systems that
     # don't support the block below.
     case $TERM_PROGRAM in
-        "iTerm.app")    term="iTerm2" ;;
-        "Terminal.app") term="Apple Terminal" ;;
-        "Hyper")        term="HyperTerm" ;;
-        *)              term="${TERM_PROGRAM/\.app}" ;;
+        "iTerm.app")                     term="iTerm2"                ;;
+        "Terminal.app"|"Apple_Terminal") term="Apple Terminal"        ;;
+        "Hyper")                         term="HyperTerm"             ;;
+        *)                               term="${TERM_PROGRAM/\.app}" ;;
     esac
 
     # Most likely TosWin2 on FreeMiNT - quick check
@@ -4616,8 +4783,8 @@ END
             # Get Process ID of current konsole window / tab
             child="$(get_ppid "$$")"
 
-            # Loop while the process name is not "konsole"
-            while [[ "$(ps -p "$(get_ppid "$child")" -o comm=)" != "konsole" ]]; do
+            # Loop while the process name is not "konsole"/"yakuake"
+            while [[ "$(ps -p "$(get_ppid "$child")" -o comm=)" != "$term" ]]; do
                 # Get the parent process ID
                 child="$(get_ppid "$child")"
 
@@ -5221,10 +5388,10 @@ get_cols() {
         # Convert the spaces into rows of blocks.
         if [ "${BASH_VERSION%%.*}" -lt 5 ]; then
             [[ "$blocks"  ]] && cols+="${block_spaces// /${blocks}[39;49mnl}"
-            [[ "$blocks2" ]] && cols+="${block_spaces// /${blocks2}[39;49mnl}"
+            [[ "$blocks2" ]] && cols+="${block_spaces// /${blocks2}[0mnl}"
         else
             [[ "$blocks"  ]] && cols+="${block_spaces// /${blocks}\[39;49mnl}"
-            [[ "$blocks2" ]] && cols+="${block_spaces// /${blocks2}\[39;49mnl}"
+            [[ "$blocks2" ]] && cols+="${block_spaces// /${blocks2}\[0mnl}"
         fi
 
         # Determine the horizontal offset of the blocks.
@@ -6304,6 +6471,7 @@ INFO:
     --title_fqdn on/off         Hide/Show Fully Qualified Domain Name in title.
     --package_managers on/off   Hide/Show Package Manager names. (on, tiny, off)
     --package_separate on/off   Whether to separate system/user modes for supported package managers
+    --package_minimal           Reduce output of packages list by not showing programming language package managers or Steam games
     --os_arch on/off            Hide/Show OS architecture.
     --speed_type type           Change the type of cpu speed to display.
                                 Possible values: current, min, max, bios,
@@ -6451,45 +6619,48 @@ ASCII:
                                 Amazon, AmogOS, Anarchy, Android, Antergos, antiX, AOSC OS, Aperio
                                 GNU/Linux, Aperture, Apricity, Arch, ArchBox, Archcraft,
                                 archcraft_ascii, archcraft_minimal, ARCHlabs, ArchMerge, ArchStrike,
-                                ArcoLinux, ArseLinux, Artix, Arya, Asahi, AsteroidOS, astOS, Astra
-                                Linux, Athena, azos, Bedrock, BigLinux, Bitrig, BlackArch,
-                                blackPanther, BLAG, BlankOn, BlueLight, Bodhi, bonsai, BSD,
-                                BunsenLabs, CachyOS, Calculate, CalinixOS, Carbs, CBL-Mariner,
-                                CelOS, Center, CentOS, Chakra, ChaletOS, Chapeau, ChonkySealOS,
-                                Chrom, Cleanjaro, Clear Linux OS, ClearOS, Clover, Cobalt, Condres,
-                                Container Linux by CoreOS, CRUX, Crystal Linux, Cucumber,
-                                CutefishOS, CuteOS, CyberOS, dahlia, DarkOs, Darwin, Debian, Deepin,
-                                DesaOS, Devuan, DietPi, digital UNIX, DracOS, DragonFly, Drauger,
-                                Droidian, Elementary, Elive, EncryptOS, EndeavourOS, Endless, Enso,
-                                EuroLinux, EvolutionOS, Exherbo, Exodia Predator OS, Fedora,
+                                ArcoLinux, Arkane, ArseLinux, Artix, Arya, Asahi, AsteroidOS, astOS,
+                                Astra Linux, Athena, azos, Bedrock, BigLinux, BigLinux_large,
+                                Bitrig, BlackArch, BlackMesa, blackPanther, BLAG, BlankOn,
+                                BlueLight, Bodhi, bonsai, BSD, BunsenLabs, CachyOS, Calculate,
+                                CalinixOS, Carbs, CBL-Mariner, CelOS, Center, CentOS, Chakra,
+                                ChaletOS, Chapeau, Chimera, ChonkySealOS, Chrom, Cleanjaro, Clear
+                                Linux OS, ClearOS, Clover, Cobalt, Condres, Container Linux by
+                                CoreOS, CRUX, Crystal Linux, Cucumber, CutefishOS, CuteOS, CyberOS,
+                                dahlia, DarkOs, Darwin, Debian, Deepin, DesaOS, Devuan, DietPi,
+                                digital UNIX, DracOS, DragonFly, Drauger, Droidian, Elementary,
+                                Elive, EncryptOS, EndeavourOS, Endless, Enso, EuroLinux,
+                                EvolutionOS, eweOS, Exherbo, Exodia Predator OS, Fedora, Fedora
+                                Kinoite, Fedora Sericea, Fedora Silverblue, Fedora_unicode,
                                 FemboyOS, Feren, Finnix, Floflis, FreeBSD, FreeMiNT, Frugalware,
-                                Funtoo, GalliumOS, Garuda, Gentoo, GhostBSD, glaucus, gNewSense,
-                                GNOME, GNU, GoboLinux, GrapheneOS, Grombyang, Guix, Haiku, HamoniKR,
-                                HarDClanZ, Hash, Huayra, Hybrid, HydroOS, Hyperbola, iglunix,
-                                instantOS, Interix, IRIX, Itc, januslinux, Kaisen, Kali, KaOS, KDE,
-                                Kibojoe, Kogaion, Korora, KrassOS, KSLinux, Kubuntu, LainOS,
-                                LangitKetujuh, LaxerOS, LEDE, LibreELEC, Linspire, Linux, Linux
-                                Lite, Linux Mint, Linux Mint Old, Live Raizo, LMDE, Lubuntu, Lunar,
-                                mac, Mageia, MagpieOS, MainsailOS, Mandriva, Manjaro, MassOS,
-                                MatuusOS, Maui, Meowix, Mer, Minix, MIRACLE LINUX, MX, Namib, NekOS,
-                                Neptune, NetBSD, Netrunner, Nitrux, NixOS, Nobara, NomadBSD,
-                                Nurunner, NuTyX, Obarun, OBRevenge, OmniOS, Open Source Media
-                                Center, OpenBSD, openEuler, OpenIndiana, openKylin, openmamba,
-                                OpenMandriva, OpenStage, openSUSE, openSUSE Leap, openSUSE
-                                Tumbleweed, OPNsense, Oracle, orchid, OS Elbrus, PacBSD, Panwah,
-                                Parabola, parch, Pardus, Parrot, Parsix, PCBSD, PCLinuxOS, pearOS,
-                                Pengwin, Pentoo, Peppermint, Peropesis, phyOS, PikaOS, Pisi, PNM
-                                Linux, Pop!_OS, Porteus, PostMarketOS, Profelis SambaBOX, Proxmox,
-                                PuffOS, Puppy, PureOS, Q4OS, Qubes, Qubyt, Quibian, Radix, Raspbian,
-                                ravynOS, Reborn OS, Red Star, Redcore, Redhat, Refracted Devuan,
-                                Regata, Regolith, RhaymOS, rocky, Rosa, Sabayon, sabotage, Sailfish,
-                                SalentOS, Salient OS, Salix, Sasanqua, Scientific, semc, Septor,
-                                Serene, SharkLinux, ShastraOS, Siduction, SkiffOS, Slackel,
+                                Funtoo, Furreto, GalliumOS, Garuda, Gentoo, GhostBSD, glaucus,
+                                gNewSense, GNOME, GNU, GoboLinux, GrapheneOS, Grombyang, Guix,
+                                Haiku, HamoniKR, HarDClanZ, Hash, Huayra, Hybrid, HydroOS,
+                                Hyperbola, iglunix, instantOS, Interix, IRIX, Ironclad, Itc,
+                                januslinux, Kaisen, Kali, KaOS, KDE, Kibojoe, Kogaion, Korora,
+                                KrassOS, KSLinux, Kubuntu, LainOS, LangitKetujuh, LaxerOS, LEDE,
+                                LibreELEC, Linspire, Linux, Linux Lite, Linux Mint, Linux Mint Old,
+                                LinuxFromScratch, Live Raizo, LMDE, Lubuntu, Lunar, mac, MacaroniOS,
+                                Mageia, Magix, MagpieOS, MainsailOS, Mandriva, Manjaro, MassOS,
+                                MatuusOS, Maui, Mauna, Meowix, Mer, Minix, MIRACLE LINUX, MX, Namib,
+                                NekOS, Neptune, NetBSD, Netrunner, Nitrux, NixOS, nixos_colorful,
+                                Nobara, NomadBSD, Nurunner, NuTyX, Obarun, OBRevenge, OmniOS, Open
+                                Source Media Center, OpenBSD, openEuler, OpenIndiana, openKylin,
+                                openmamba, OpenMandriva, OpenStage, openSUSE, openSUSE Leap,
+                                openSUSE Tumbleweed, OPNsense, Oracle, orchid, OS Elbrus, PacBSD,
+                                Panwah, Parabola, parch, Pardus, Parrot, Parsix, PCBSD, PCLinuxOS,
+                                pearOS, Pengwin, Pentoo, Peppermint, Peropesis, phyOS, PikaOS, Pisi,
+                                PNM Linux, Pop!_OS, Porteus, PostMarketOS, Profelis SambaBOX,
+                                Proxmox, PuffOS, Puppy, PureOS, Q4OS, Qubes, Qubyt, Quibian, Radix,
+                                Raspbian, ravynOS, Reborn OS, Red Star, Redcore, Redhat, Refracted
+                                Devuan, Regata, Regolith, RhaymOS, rocky, Rosa, Sabayon, sabotage,
+                                Sailfish, SalentOS, Salient OS, Salix, Sasanqua, Scientific, semc,
+                                Septor, Serene, SharkLinux, ShastraOS, Siduction, SkiffOS, Slackel,
                                 Slackware, SliTaz, SmartOS, Soda, Solus, Source Mage, Sparky, Star,
-                                SteamOS, Stock Linux, Sulin, SunOS, SwagArch, t2, Tails, TeArch,
-                                TorizonCore, Trisquel, Twister, Ubuntu, Ubuntu Budgie, Ubuntu
-                                Cinnamon, Ubuntu Kylin, Ubuntu MATE, Ubuntu Studio, Ubuntu Sway,
-                                Ubuntu Touch, Ubuntu-GNOME, ubuntu_old02, Ultramarine Linux,
+                                SteamOS, Stock Linux, Sulin, SunOS, SwagArch, t2, Tails, Tatra,
+                                TeArch, TorizonCore, Trisquel, Twister, Ubuntu, Ubuntu Budgie,
+                                Ubuntu Cinnamon, Ubuntu Kylin, Ubuntu MATE, Ubuntu Studio, Ubuntu
+                                Sway, Ubuntu Touch, Ubuntu-GNOME, ubuntu_old02, Ultramarine Linux,
                                 unicodearch, Univalent, Univention, Uos, UrukOS, uwuntu, Vanilla,
                                 Venom, VNux, Void, VzLinux, wii-linux-ngx, Windows, Windows 10,
                                 Windows 11, Windows95, Wrt, Xenia, Xenia2, XFerience, Xray_OS,
@@ -6505,6 +6676,11 @@ ASCII:
                                 nixos, openbsd, opensuse, orchid, parabola, popos, postmarketos,
                                 pureos, Raspbian, rocky, slackware, sunos, ubuntu, venom, void have
                                 'small' logo variants, use {distro}_small to use them.
+
+                                NOTE: Fedora has immutable spins with unique logos (except Onyx).
+
+                                NOTE: Change this to Silverblue, Kinoite, Sericea, or CoreOS to use
+                                the spins.
 
     --ascii_bold on/off         Whether or not to bold the ascii logo.
     -L, --logo                  Hide the info text and only show the ascii logo.
@@ -6568,6 +6744,7 @@ get_args() {
             "--title_fqdn") title_fqdn="$2" ;;
             "--package_managers") package_managers="$2" ;;
             "--package_separate") package_separate="$2" ;;
+            "--package_minimal") package_minimal="1" ;;
             "--os_arch") os_arch="$2" ;;
             "--cpu_cores") cpu_cores="$2" ;;
             "--cpu_speed") cpu_speed="$2" ;;
@@ -7163,24 +7340,24 @@ EOF
             set_colors 15 6
             read -rd '' ascii_data <<'EOF'
 ${c1}             ___________
-            /           \
-           /   ${c2}______${c1}    \
-          /   ${c2}/      \${c1}    \
-          |  ${c2}(        )${c1}    \
-         /    ${c2}\______/${c1}     |
+            /           \\
+           /   ${c2}______${c1}    \\
+          /   ${c2}/      \\${c1}    \\
+          |  ${c2}(        )${c1}    \\
+         /    ${c2}\\______/${c1}     |
          |                 |
-        /                   \
+        /                   \\
         |                   |
         |                   |
        /                    |
        |                    |
        |     _______        |
-  ____/     /       \       |
+  ____/     /       \\       |
  /          |       |       |
  |          /   ____/       |
- \_________/   /            |
-               \         __/
-                \_______/
+ \\_________/   /            |
+               \\         __/
+                \\_______/
 EOF
         ;;
 
@@ -7536,6 +7713,35 @@ ${c2}                    /-
   ooooooooo-             ${c1}-ooooooooooooo.${c2}
  ooooooooo-                 ${c1}.-oooooooooo.${c2}
 ooooooooo.                     ${c1}-ooooooooo${c2}
+EOF
+        ;;
+
+        "Arkane"*)
+            set_colors 7 130 237
+            read -rd '' ascii_data <<'EOF'
+${c3}                    .:..
+                 ..:::......
+           ${c2}.${c3}   .${c2}.${c3}.....
+           ${c2}+=${c3}...${c2}==${c3}....
+   ......:.${c1}:-${c2}:${c3}..${c1}+*${c2}=${c3}....
+            ${c2}:----::${c3}......
+          ${c2}.=***##*+=:    ${c3}..
+         ${c2}=${c1}***######*${c2}=
+          ${c2}.${c1}-*######+
+         ${c2}:+${c1}###%%%###${c3}:
+         ${c2}-+*${c1}########+${c3}.
+         ${c2}=++*${c1}#######${c3}-
+        ${c2}-+=+**${c1}*####${c3}=
+     ${c3}.${c2}-=++==***${c1}##*${c1}-
+    ${c2}-++++++==++++=
+  .-+++**+++=+===${c3}.
+${c2}:---===++++=-=--${c3}.
+${c2}-===============${c3}-==--:
+${c2}.-==+++***++*${c1}*#########${c3}=:::.
+ ${c2}.-=++++*++++**${c1}#######%%###${c3}=
+   ${c2}.:==++++++**${c1}#############${c3}:
+            ${c2}.${c3}-+*++*+++==${c1}###${c3}+
+                       -${c1}*+${c3}:
 EOF
         ;;
 
@@ -8023,6 +8229,35 @@ ${c1}--------------------------------------
 EOF
         ;;
 
+        "BigLinux_large"*)
+            set_colors 2 3 4 7
+            read -rd '' ascii_data <<'EOF'
+${c4}
+                                              ${c3}.cd0KXXX${c4}0${c3}x;
+                                           ${c3}.oXM${c4}M${c3}MMMMMMMMMWo
+                             ${c2}...          ${c3}dWMMMM${c4}M${c3}MMMMMMMMMMN,
+                          ${c2}c0WMMMW0:     ${c3}.XMMMM${c4}M${c3}MMMKdc;,;cxNMM:
+    ${c1}x,                  ${c2}.XMMMMMMMMM:   ${c3}'W${c3}MMMMMMWo.         ;KW.
+   ${c1}dM.                  ${c2}.WMMMMMMMM0    ${c3}N${c3}MMMM${c4}M${c3}Mk.             dd
+  ${c1}.MM.                   ${c2}.lOKXKOl.    ${c3}oMMMMMMd         .l${c4}x${c3}kd: .
+  ${c1}kMM:          .'..         ${c2}:xOOxc.  ${c3}O${c4}M${c3}MMMM0        lXMMMMM${c4}M${c3}N;
+  ${c1}WMM0       lKMMMMMW0o.    ${c2}KMMMMMMN. ${c3}xMM${c4}M${c3}M,     .dWMMMMMMMMMM;
+ ${c1}.MMMMx   .oWMMMMMMOl0MMX;  ${c2}NMMMMMMM; ${c3}.NMMMM.   .dWMMMM${c4}M${c3}MMMMMMMN
+ ${c1}.MMMMMNOKMMMMMMMk.  'MMMMx ${c2};MMMMMMMO  ${c3}.KMMMl .oWMMMMMWk:,lWMMMM.
+  ${c1}xMMMMMMMMMMMMk.    .MMMMMc ${c2}'XMMMMMMx   ${c3}:0MMNMMMM${c4}M${c3}MWx.    .WM${c4}M${c3}M.
+   ${c1}0MMMMMMMMWx.      :MMMMMK   ${c2}cKMMMMMX:    ${c3},ok0K0x:.       oMMN
+    ${c1}oNMMMM0c.       .NMMMMMO     ${c2}.lOWMMMX:                  ${c3}.M${c4}M${c3}o
+   ${c1}c. .'.          .KMMMMMM:         ${c2}.';clc.                 ${c3}MN
+   ${c1}:N;            cWMMMMMMO                                 ${c3}.W;
+    ${c1}0M0:       'dNMMMMMMM0                                  ${c3}',
+     ${c1}0MMMX0O0XMMMMMMMMMMo
+      ${c1}oWMMMMMMMMMMMMMMk.
+       ${c1}.oXMMMMMMMMW0c.
+          ${c1}.;ccc:,.
+
+EOF
+        ;;
+
         "BigLinux"*)
             set_colors 6 11 4
             read -rd '' ascii_data <<'EOF'
@@ -8095,6 +8330,34 @@ ${c2}        .oossssso-`${c3}//${c1}`/ossssss+`
   `+sso+:-`        ${c3}//${c1}       `.-/+oso:
  `++:.             ${c3}//${c1}            `-/+/
  .`                ${c3}/${c1}                `/
+EOF
+        ;;
+
+        "BlackMesa")
+            set_colors 1
+            read -rd '' ascii_data <<'EOF'
+${c1}             
+           .-;+$XHHHHHHX$+;-.
+        ,;X@@X%/;=----=:/%X@@X/,
+      =$@@%=.              .=+H@X:
+    -XMX:                      =XMX=
+   /@@:                          =H@+
+  %@X,                            .$@$
+ +@X.                               $@%
+-@@,                                .@@=
+%@%                                  +@$
+H@:                                  :@H
+H@:         :HHHHHHHHHHHHHHHHHHX,    =@H
+%@%         ;@M@@@@@@@@@@@@@@@@@H-   +@$
+=@@,        :@@@@@@@@@@@@@@@@@@@@@= .@@:
+ +@X        :@@@@@@@@@@@@@@@M@@@@@@:%@%
+  $@$,      ;@@@@@@@@@@@@@@@@@M@@@@@@$.
+   +@@HHHHHHH@@@@@@@@@@@@@@@@@@@@@@@+
+    =X@@@@@@@@@@@@@@@@@@@@@@@@@@@@X=
+      :$@@@@@@@@@@@@@@@@@@@M@@@@$:
+        ,;$@@@@@@@@@@@@@@@@@@X/-
+           .-;+$XXHHHHHX$+;-.
+
 EOF
         ;;
 
@@ -8644,6 +8907,30 @@ ${c1}               .-/-.
 EOF
         ;;
 
+        "Chimera"*)
+            set_colors 1 5 4 1
+            read -rd '' ascii_data <<'EOF'
+${c3}ddddddddddddddc  ${c1},cc:
+${c3}ddddddddddddddc  ${c1},cc:
+${c3}ddddddddddddddd  ${c1},cc:
+${c3}ddddddddddddl:'  ${c1},cc:
+${c3}dddddddddl'    ${c1}..;cc:
+${c3}dddddddo.   ${c1},:cccccc:
+${c3}ddddddl   ${c1},ccc:'''''
+${c3}dddddo.  ${c1};ccc.          ............
+        .ccc.           cccccccccccc
+${c2}......  ${c1}.ccc.          .ccc'''''''''
+${c2}OOOOOk.  ${c1};ccc.        .ccc;   ......
+${c2}OOOOOOd   ${c1}'ccc:,....,:ccc'   ${c4}coooooo
+${c2}OOOOOOOx.   ${c1}':cccccccc:'   ${c4}.looooooo
+${c2}OOOOOOOOOd,     ${c1}`'''`     ${c4}.coooooooo
+${c2}OOOOOOOOOOOOdc,.    ${c4}..,coooooooooooo
+${c2}OOOOOOOOOOOOOOOO'  ${c4}.oooooooooooooooo
+${c2}OOOOOOOOOOOOOOOO'  ${c4}.oooooooooooooooo
+${c2}OOOOOOOOOOOOOOOO'  ${c4}.oooooooooooooooo
+EOF
+        ;;
+
         "ChonkySealOS"*)
             set_colors 7
             read -rd '' ascii_data <<'EOF'
@@ -8827,7 +9114,7 @@ ${c2}:sssssssssssso++${c1}${c3}`:/:--------.````````
 EOF
         ;;
 
-        "Container Linux by CoreOS"* | "Container_Linux"*)
+        "Container Linux by CoreOS"* | "Container_Linux"* | "Fedora CoreOS" | "CoreOS"*)
             set_colors 4 7 1
             read -rd '' ascii_data <<'EOF'
 ${c1}                .....
@@ -9567,6 +9854,27 @@ ${c1}\e[1;32m      dddddddddddddddddddddddd
 EOF
         ;;
 
+        "eweOS"*)
+            set_colors 7 11 9 8 1
+            read -rd '' ascii_data <<'EOF'
+${c2}           #####%%%                     
+${c2}        ##%%${c3}////${c2}%%%%%${c3}///                
+${c2}       #%%%%${c3}////((((////${c2}%               
+${c1}    *@@@@@@@${c3}/${c5},,,${c3}/////${c5},,,${c2}%${c1}@@@@@@@        
+${c1}  .@@@@@@@@@@@${c3}////////${c2}%%%${c1}@@@@@@@@@@@@   
+${c1} @@@${c4}...${c1}@@@@@@${c3}////${c2}%%${c3}////${c1}@@@@@@@@@@@@@@@@ 
+${c1} @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+${c1} @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+${c1}   @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+${c1}         @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+${c1}          @@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 
+${c1}           @@@@@@@@@@@@@@@@@@@@@@@@@@@  
+${c1}             @@@@@@@@@@@@@@@@@@@@@@@    
+${c1}              @@@@@@         @@@@@@     
+${c1}                @@@           @@@       
+EOF
+        ;;
+
         "Exherbo"*)
             set_colors 4 7 1
             read -rd '' ascii_data <<'EOF'
@@ -9630,6 +9938,100 @@ ${c1}          /:-------------:\\
 :---${c2}:sdNMMMMNds:${c1}------------:
 :------${c2}:://:${c1}-------------::
 :---------------------://
+EOF
+        ;;
+
+        "Fedora_unicode")
+            set_colors 12 7
+            read -rd '' ascii_data <<'EOF'
+${c1}        ▄████████████████████▄
+      ▄████████████████████████▄
+    ▄████████████████████████████▄
+  ▄███████████████${c2}        ${c1}█████████▄
+▄████████████████${c2}          ${c1}██████████▄
+████████████████${c2}    ${c1}████${c2}    ${c1}██████████
+████████████████${c2}    ${c1}████${c2}    ${c1}██████████
+████████████████${c2}    ${c1}██████████████████
+█████████${c2}     ${c1}▀█${c2}        ${c1}██████████████
+███████${c2}        ${c1}█${c2}        ${c1}██████████████
+██████${c2}    ${c1}██████${c2}    ${c1}██████████████████
+██████${c2}   ${c1}███████${c2}    ${c1}██████████████████
+██████${c2}     ${c1}███${c2}     ${c1}███████████████████
+███████${c2}           ${c1}██████████████████▀
+█████████${c2}       ${c1}██████████████████▀
+████████████████████████████████▀
+▀█████████████████████████████▀
+  ▀█████████████████████████▀
+EOF
+        ;;
+
+        "Fedora Silverblue" | "Silverblue"*)
+            set_colors 4 7 12
+            read -rd '' ascii_data <<'EOF'
+${c1}    .;ooooooooooooooooooooooooooo.
+${c1}  ,dddddddddddddddddddddddddddddd'${c3};
+${c1} lddddddddddddddddddddddddddddd'${c3};;;
+${c1}ddddd${c2},XXX.${c1}ddddd${c2},XXX.${c1}dddd'${c2},XXX.${c3};;;;;
+${c1}ddddd${c2}XX${c1}x${c2}XX${c1}ddddd${c2}XX${c1}x${c2}XX${c1}ddd'${c2},XX${c3}x${c2}XX${c3};;;;;
+${c1}ddddd${c2}'XXX'${c1}ddddd${c2}'XXX'${c1}dd'${c2}XXXXXX'${c3};;;;;
+${c1}dddddd${c2};X;${c1}ddddddd${c2};X:${c1}d'${c2}XXX${c3};;;;;;;;;;;
+${c1}dddddd${c2};X;${c1}ddddddd${c2};X:${c2}XXX${c3};;;;;;;;;;;;;
+${c1}dddddd${c2};X;${c1}dddddd'${c2};XXX,,,,,,XXX.${c3};;;;;
+${c1}dddddd${c2};X;${c1}dddd'${c2}XXXX${c2}XXXXXXXXX${c3}x${c2}XX${c3};;;;;
+${c1}dddddd${c2};X;${c1}dd'${c2}XXX${c3};;;;;;;;;;;${c2}XXX${c3};;;;;;
+${c1}dddddd${c2};X;${c1}'${c2}XXX${c3};;;;;;;;;;;;;;;;;;;;;;
+${c1}dddddd${c2};XXXXX,,,,,,,,,,,,,;XXX:${c3};;;;;
+${c1}dddddd${c2}:XXXXXXXXXXXXXXXXXXXX${c3}x${c2}XX${c3};;;;;
+${c1}ddddd'${c3};;;;;;;;;;;;;;;;;;;${c2}'XXX'${c3};;;;'
+${c1}ddd'${c3};;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+${c1}o'${c3};;;;;;;;;;;;;;;;;;;;;;;;;;;;'
+EOF
+        ;;
+
+        "Fedora Kinoite"* | "Kinoite"*)
+            set_colors 12 7
+            read -rd '' ascii_data <<'EOF'
+${c1} ,clll:.${c2}          .,::::::::::::'
+${c1}:ooooooo${c2}        .;::::::::::::::
+${c1}looooooo${c2}       ,:::::::::::::::'
+${c1}looooooo${c2}      .::::::::::::::::
+${c1}looooooo${c2}      ;:::::::::::::::.
+${c1}looooooo${c2}     .::::::::::::::::
+${c1}looooool${c2};;;;,::::::::::::::::
+${c1}looool${c2}::,   .::::::::::::::
+${c1}looooc${c2}::     ;::
+${c1}looooc${c2}::;.  .::;
+${c1}loooool${c2}:::::::::::.
+${c1}looooooo${c2}.    .::::::'
+${c1}looooooo${c2}       .::::::,;,..
+${c1}looooooo${c2}          :::;' ';:;.
+${c1}looooooo${c2}          :::     :::
+${c1}cooooooo${c2}          .::'   '::.
+ ${c1}.ooooc ${c2}            ::, ,::
+                      ''''
+EOF
+        ;;
+
+        "Fedora Sericea"* | "Sericea"*)
+            set_colors 12 7
+            read -rd '' ascii_data <<'EOF'
+${c1}              :oooo,  .','
+      .';;;.;oooooooolooooo'
+     coooooooooooooooooooooooolc'
+  .':oooooooooooo${c2}ll${c1}ooooooooooooool
+.oooooooooooooooo${c2}ll${c1}oooooooooooo${c2}l${c1}ool
+ooooooooooooooooo${c2}ll${c1}ooooooooooo${c2}ll${c1}oo'
+ oooo${c2}l${c1}oooooooooo${c2}lll${c1}ooooooooo${c2}lll${c1}oo
+ .ooooo${c2}lll${c1}ooooo${c2}lll${c1}ooooooooo${c2}lll${c1}ool
+ .ooooooo${c2}lll${c1}oo${c2}llll${c1}oooo${c2}lllll${c1}ooooo:
+  'oooooooo${c2}llllllllllll${c1}oooooooo'
+     .c,.oo${c2}lllll${c1}oooooooo.${c2}
+           'll;
+           'll.
+           lll
+           lll
+          ;ll,
+          .l:
 EOF
         ;;
 
@@ -9726,6 +10128,36 @@ ${c1}            ,,:;;;;:,,
      ,+%##################%;
         :+?S##########S?+:
             ,:;++++;:,
+EOF
+        ;;
+
+        "Furreto"*)
+            set_colors 211 255 225 199
+            read -rd '' ascii_data <<'EOF'
+${c1}
+               ${c1}.xOOko      .odd,
+              o${c3}X${c2}WWK${c3}O${c1}OOO. 'O${c3}N${c2}WW${c3}0${c1}kkk.
+             .k0${c3}XKO${c1}OOOOOcOO${c2}NWN${c1}OOOOO.
+              xOOOOOOOOOkkOOOOOOOOO;
+       .O0OkkocxO000000kcdk0OO0OOkx
+       k${c3}W${c2}MX${c1}kkkkloxkkkx;  :dxxxxddc...
+      'kO0OOOOOkc          .cl:..kk0KK0Okc
+      ;kOOO0000xd.  dO00000Oo  .xkO${c3}N${c2}MM${c3}X${c1}OOOO
+    .dddxkOOOkddc.k${c3}K${c2}NWW${c3}N${c1}000000l.ddk${c2}00${c1}00OOOO.
+     'dd:;ddddd;.d${c3}K${c2}MMM${c3}W${c1}K00KKK0O::ddxkO00Oko
+             .okxkOKK0kkOO00KKOxxlodddddddl
+           .00OOkkkkkkkkOOO00OOOO0O;  .dddl
+          'kkkkkxxkkkkkkkOOkxdxkxxddd.
+          cddddddddxxkkkkk${c4}xddddddddddo
+          'ddddddodddddddddddddddddddc
+           .ddddddodddddddddodddddddc
+                    .odddo.
+
+                   .kOOkkk;
+                  lkKWNkkkxc
+                 kkxkkkkkkx.
+                  ,,..xxx.
+
 EOF
         ;;
 
@@ -10337,6 +10769,24 @@ ${c2}~!!7JY5PGGBBBBBBBBGGGGGGGBGGGGGP5YJ?7~~~
 EOF
         ;;
 
+         "Ironclad"*)
+             set_colors 5 7 0
+             read -rd '' ascii_data <<'EOF'
+${c3}
+                   &#BGPPPPPG#&
+                B5?77!!?YJJ7!7YBB&
+             &G5YJ77!7JYYYYYBPJ&PY#
+           #PYYYYYY?!?YYYYY7?7JP5JJ
+          B?YYYYYY7!!7JYYYYJ!!?JJJ5
+   &&    B7?J?77?7!!!!!77777!7Y5YYBBPGGG&
+  G77?YBB!!!!!!!!!!!!!JYJ??7JYJJY# PYPPG&
+  J777JB?!7JJ???!!!7?JYYYYYPJ!7JB
+  GYYG #JJJJJ??7!!!JYYY5PGB&GB&
+     #Y!?GB5YYJY5PG###&
+     GJJP
+EOF
+
+  ;;
         "januslinux"*|"janus"*|"Ataraxia Linux"*|"Ataraxia"*)
             set_colors 4 5 6 2
             read -rd '' ascii_data <<'EOF'
@@ -10750,6 +11200,32 @@ ${c3}#######${c2}#${c1}#####${c2}#${c3}#######
 ${c3}  #####${c2}#######${c3}#####
 EOF
         ;;
+
+        "LinuxFromScratch" | *"LFS" | "linux-from-scratch" | "linux_from_scratch")
+            set_colors fg 8 3
+            read -rd '' ascii_data <<'EOF'
+${c2}              .:@:.
+${c2}            :@@@@@@@:
+${c2}            @@@@@@@@@-
+${c2}    .:%.    @@@@@@@@@+.       @%
+${c2}   *@@@%+:  :@@@@@@@%=: .=%@@@@@@=
+${c2}  :@@@@@@##@@@@@@@@@%*+%@%+@@@@@@@+
+${c2}  @@#${c1}####${c2}+@@@@@@@%:${c1}######${c2}=@@@@@@@@@-
+${c2} *@%${c1}######${c2}.@@@@@#${c1}#########${c2}-@@@@@@@@#.
+${c2} %@-${c1}#${c2}.@${c1}=${c2}:${c1}##${c2}+@@@@-${c1}###${c2}%@${c1}:${c2}=${c1}###${c2}*@#*+=-+#:
+${c2} @@.${c1}#${c2}@@*${c1}=${c2}:${c1}#${c2}-%%**-${c1}##${c2}%@@%${c1}*${c2}*${c1}###${c2}#=-
+${c2} @@-${c1}#${c2}@@@@+.-${c3}...${c2}:=.${c1}#${c2}%@@@@%${c1}###${c2}#-
+${c2} %@%${c1}##${c2}*#:${c3}.o.....o...${c2}-%@+${c1}###${c2}#@+    -:
+${c2} +@@*${c1}#${c3}....................${c2}+@@@@@@@@+
+${c2}  @%:${c3}....................._:${c2}@@@@@@@=.
+${c2}  .=:${c3}...............__*-=`.${c2}=@@@@@@#=.
+${c2}   :+:${c3}....:==*__*-=`:..==-:${c2}#@@@@@%+:
+${c2}     .--=-:  ${c3}+..::.....-:    ${c2}=%@*=:
+${c2}              :........-
+${c2}                .:...--.
+EOF
+        ;;
+
         "Linux_small")
             set_colors fg 8 3
             read -rd '' ascii_data << 'EOF'
@@ -10870,6 +11346,35 @@ ${c3}          __
 EOF
         ;;
 
+        "MacaroniOS"* | "Macaroni OS"*)
+
+            set_colors 2 3 15 14
+            read -rd '' ascii_data <<'EOF'
+                 ${c2}
+             -=+++==--::..                                      .-+++==-:.
+           .:--:-=++==-:.                              :=*+=--==+***######**+-:
+      .---:-===-----===+++==-:..                     :=+=--=+*****+++*****#%%%#-
+       .=*********+++========+++++=--:.         .:-=+++++++=-:..     .=*=::.
+     :-=-.  .:::---===+++++++++++*******++====+**+++=-:.               :+*-..
+  .. -++                    ..:--==+***********=:.                       -*=
+ .   :+.      .           ${c3}...${c2}        .:--===:.                            .++
+    .*:       .       ${c3}:+#%%@@%%#=:                                          ${c2}--
+    ${c2}-=              ${c3}-#@@@@@@@@@@@@#:                                         ${c2}.
+                  ${c3}:*%@%%@@@@@@@@@@@%+          .:--====-:.
+                 :*%%%%%%%%%@@@@@@@@@*.     :=*#%%%%@@@@@%#+-
+                .*%%%%%%%%%%%%%@@#+--=-   -*%%%%%%%%%%%@@@@@%#=
+                -#%%%%%%%%%%%%%#:  :+:   :+%*#%%%%%%%%%%%%%%%%%*.
+                +%%%%%%%%%%%%%%:   .#*:    *+-*%%%%%%%%%%%%%%%%%+
+                +%%%%%%%%%%%%%#  .      .   . :%%%%%%%%%%%%%%%%%#.
+                =#%%%%%%%%%%%%#  .      .     =%%%%%%%%%%%%%%%%%*.
+                .*%%%%%%%%%%%%%*         :   =%%%%%%%%%%%%%%%%%#-
+                 :#%%%%%%%%%%%%%#=....   .=*%%%%%%%%%%%%%%%%%%*:
+                  :*%@@%%%%%%%%%%%%#+.     :+#%%%%%%%%%%%%%#*-
+                    =*%%@@%%%%%%%#*-          .-=+**##**+=:
+                      :=*######+=:
+EOF
+        ;;
+
         "mac"*"_small")
             set_colors 2 3 1 5 4
             read -rd '' ascii_data <<'EOF'
@@ -10945,6 +11450,30 @@ lOO.                .OO:
 EOF
         ;;
 
+        "Magix"*)
+            set_colors 206 39
+            read -rd '' ascii_data <<'EOF'
+${c2}                  @
+             @@--=====@@
+        @@--==@@     @@====+@
+       @-@@               @==@
+      @=@
+     @=@${c1}   @=@  @-====  @=@${c2}
+    @=@${c1}    @-===@==++@===+@${c2}
+   @=@${c1}     @--====@@=====+@${c2}
+  -=@${c1}      @--==========++@${c2}
+  ==${c1}       @--==========++@${c2}     @=@
+  @==${c1}      @--=======@==++@${c2}    @=+@
+   @==${c1}      @-==========++${c2}    @=@
+    @==${c1}      @-=======@=%${c2}    @=@
+     @==${c1}        @@@@@@${c2}      @=@
+      @====@@@         @@===+%
+          @@=====@@==++++@@
+                =#@=@
+               @==@++@
+                 @@@
+EOF
+            ;;
         "MagpieOS"*)
             set_colors 2 1 3 5
             read -rd '' ascii_data <<'EOF'
@@ -11136,6 +11665,27 @@ ${c1}             `.-://////:--`
       `:+oooooooooooooooooooooo+:`
          .:+oooooooooooooooo+:.
              `.-://////:-.`
+EOF
+        ;;
+
+        "Mauna"*)
+            set_colors 4 6
+            read -rd '' ascii_data <<'EOF'
+${c1}        ..  :-=++++=-:
+    .-+*+ -********* **=
+   =***= +******+ =---=+*.
+  +**** +****+ :-=++*++=--
+ =****= **** :+***********+:
+ +****+ ***      ${c2}.-- ${c1}+******-
+ =*****: *-       ${c2}:+=: ${c1}=*****:
+${c2}. ${c1}+*****: :        ${c2}-+++ ${c1}:****=
+${c2}-+ ${c1}:*****+        ${c2}- ++++ ${c1}:***-
+${c2}-++=: ${c1}=+****:   ${c2}:++ +++++ ${c1}**+
+${c2} +++++= ${c1}-====-${c2}++++: +++++ ${c1}*+
+${c2} .=++++++++++++++: ${c2}+++++= ${c1}.
+${c2}   .=+++++++++= :=+++++=
+      .:::--- -+++++++-
+           :-==++==-.
 EOF
         ;;
 
@@ -11584,6 +12134,32 @@ ${c1}               ${c1}/#####/  \######\${c2}      \######\
 ${c1}              ${c1}/#####/    \######\${c2}      \######
 ${c1}              ${c1}\####/      \######\${c2}      \####/
 ${c1}               ${c1}¯¯¯¯        ¯¯¯¯¯¯¯${c2}       ¯¯¯¯
+EOF
+        ;;
+
+        "nixos_colorful"*)
+            set_colors 4 6 4 6 4 6
+            read -rd '' ascii_data <<'EOF'
+${c1}          ▗▄▄▄       ${c2}▗▄▄▄▄    ▄▄▄▖
+${c1}          ▜███▙       ${c2}▜███▙  ▟███▛
+${c1}           ▜███▙       ${c2}▜███▙▟███▛
+${c1}            ▜███▙       ${c2}▜██████▛
+${c1}     ▟█████████████████▙ ${c2}▜████▛     ${c3}▟▙
+${c1}    ▟███████████████████▙ ${c2}▜███▙    ${c3}▟██▙
+${c6}           ▄▄▄▄▖           ${c2}▜███▙  ${c3}▟███▛
+${c6}          ▟███▛             ${c2}▜██▛ ${c3}▟███▛
+${c6}         ▟███▛               ${c2}▜▛ ${c3}▟███▛
+${c6}▟███████████▛                  ${c3}▟██████████▙
+${c6}▜██████████▛                  ${c3}▟███████████▛
+${c6}      ▟███▛ ${c5}▟▙               ${c3}▟███▛
+${c6}     ▟███▛ ${c5}▟██▙             ${c3}▟███▛
+${c6}    ▟███▛  ${c5}▜███▙           ${c3}▝▀▀▀▀
+${c6}    ▜██▛    ${c5}▜███▙ ${c4}▜██████████████████▛
+${c6}     ▜▛     ${c5}▟████▙ ${c4}▜████████████████▛
+${c5}           ▟██████▙       ${c4}▜███▙
+${c5}          ▟███▛▜███▙       ${c4}▜███▙
+${c5}         ▟███▛  ▜███▙       ${c4}▜███▙
+${c5}         ▝▀▀▀    ▀▀▀▀▘       ${c4}▀▀▀▘
 EOF
         ;;
 
@@ -12424,14 +13000,37 @@ EOF
         "PikaOS"*)
             set_colors 11
             read -rd '' ascii_data <<'EOF'
-${c1} /🐦🐦🐦$ /🐦/🐦                /🐦🐦🐦  /🐦🐦🐦 
-| 🐦__  $|__| 🐦               /🐦__  🐦/🐦__  🐦
-| 🐦  \ 🐦/$| 🐦   /🐦 /🐦🐦🐦| 🐦  \ $| 🐦  \__/
-| 🐦🐦🐦$| $| 🐦  /🐦/|____  $| 🐦  | $|  🐦🐦🐦 
-| 🐦____/| $| 🐦🐦🐦/  /🐦🐦🐦| 🐦  | 🐦\____  🐦
-| 🐦     | $| 🐦_  🐦 /🐦__  $| 🐦  | 🐦/🐦  \ 🐦 
-| 🐦     | $| 🐦 \  $|  🐦🐦🐦|  🐦🐦🐦|  🐦🐦🐦/
-|__/     |__|__/  \__/\_______/\______/ \______/       .
+${c1}
+                  '',,,               ,,,d,                 
+              ',,                           ,,'             
+           ',                                   ,.          
+         .,                                       '         
+        .                                           .       
+      '                                               .     
+    ..                   oddddkdlc:;,..                ..   
+   .                        ............lllc,            .  
+  .                       ....................:           . 
+ .                        .  ....................           
+      '.                     ..........'o........d0XX0.     
+     ....lllllllcOOOcllllll............cxlxc...;okkkx.      
+     ..................................';lc'...lo.          
+    .'''''''''''''.....................,;,.......           
+    ',,,,,,,,,,,,,,,,''...............dkkkd......           
+    ',,,,,,,,,,,,,,,,,,,'............;okkkd;....            
+    .,,,,,,,,,,,,,,,,,,,,,............;cll;.....            
+      ,,,,,,,,,,,,,,,,,,,,'....................:d,          
+       ,,,,,,,,,,,,,,,,,,,....................oxxx:         
+        .,,,,,,,,,,,,,,,,,'..................oxxxxx.  .     
+         .,,,,,,,,,,,,,,'..........        ,oxxxxxxx .      
+        .;,,,,,,,,,,,,'..                'cxxxxxxxxx,       
+         :dl:,'',,'....               .;lxxxxxxxxxd;        
+          ,codol:;'.           ...,;cldxxxxxxxxxoc.         
+            .:cxxxxxdlccccc:ccldxxxxxxxxxxxxxx::.           
+              .'::dxxxxxxxxxxxxxxxxxxxxxxxd::'.             
+                 ..,::cdxxxxxxxxxxxxxdc::,..                
+                      ...,;:::::::;,...                     
+                                                            
+                                                            
 EOF
         ;;
         
@@ -15095,6 +15694,28 @@ ${c3}      rj].           . r
                     ${c1}11 +${c2}]${c3}[[[[
                     ${c1}1   ${c2}]${c3}[[
                        `
+EOF
+        ;;
+
+        "Tatra"*)
+            set_colors 4 7
+            read -rd '' ascii_data <<'EOF'
+${c1}
+         . .:. .         .:.            
+        .^^.!.:::.    .^!?J?^           
+      .:^.^!!!~:~^.  .7??77!~~^.        
+     .~^.!??77?!.^~:  ..:^^7JJJ7~~^.    
+     .^~.^7???7~.~~.   .7??????????!    
+      .:^:^^~^^:!^ ^:  .......^!:...    
+    .!7~.::.!.::. ~BG~    :^  ^~:       
+    :!!~   ~.    ?BBBB!  ^?J!.  .!~.    
+     :!. .JBY. .Y#BBBY?~!???J7. :^^.    
+     .. :5#B#P~P#BBP?7?55J?J7:          
+       ^P#BBBBBBBB5?7J5555J!.....       
+      !BBBBBBGBBGJ77::Y555J?77777^      
+     ?BBBBG5JJ5PJ?!:  .?Y??????77?~.    
+   .YBGPYJ??????Y?^^^^~7?????????7?!.   
+   .^^:..::::::::.....:::::::::::..:.  
 EOF
         ;;
 

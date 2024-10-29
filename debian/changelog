@@ -1,3 +1,10 @@
+hyfetch (1.99.0-1kaisen) kaisen-packages; urgency=medium
+
+  * Import the 1.99.0 release
+
+ -- Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>  Tue, 29 Oct 2024 18:25:26 +0100
+
+
 hyfetch (1.4.11-1kaisen) kaisen-packages; urgency=medium
 
   * Initial release

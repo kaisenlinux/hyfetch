@@ -2,7 +2,7 @@
 
 from . import AsciiArt
 
-aosc_os = AsciiArt(match=r'''"AOSC OS"*''', color='4 0 1 3', ascii=r"""
+aosc_os = AsciiArt(match=r'''"AOSC OS"*''', color='4 0 1 3', ascii=r'''
 ${c2}                  __
                ${c2}gpBBBBBBBBBP
            ${c2}_gBBBBBBBBBRP
@@ -13,12 +13,12 @@ ${c2}                  __
        ${c4}_w@@@@@@@@@@@@@@@@P" ${c1}_g@@@@@@@P"
     ${c4}_g@@@@@@@@@@@@@@@N"`  ${c1}VMNN@NNNM^`
   ${c4}^MMM@@@@@@@@@@@MP" ${c3},ggppww__
-          ${c4}`"\"\"\"" ${c3}_wNNNNNNNNNNNNNNNNNNN
+          ${c4}`""""" ${c3}_wNNNNNNNNNNNNNNNNNNN
               ${c3}_gBNNNNNNNNNNNNNNNNNP"
           ${c3}_wNNNNNNNNNNNNNNNNNNMP`
        ${c3}_gBNNNNNNNNNNNNNNNNNP"
    ${c3}_wNNNNNNNNNNNNNNNNNNNM^
    ${c3}""Y^^MNNNNNNNNNNNNP`
-           ${c3}`"\"\""\"\""
-""")
+           ${c3}`"""""""
+''')
     

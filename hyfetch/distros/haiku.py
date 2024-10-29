@@ -2,7 +2,7 @@
 
 from . import AsciiArt
 
-haiku = AsciiArt(match=r'''"Haiku"*''', color='1 3 7 2', ascii=r"""
+haiku = AsciiArt(match=r'''"Haiku"*''', color='1 3 7 2', ascii=r'''
 ${c3}
 
            MMMM              MMMM
@@ -16,6 +16,6 @@ ${c3}           MMMM${c4}   .cOMMMMM|/MMMMM/`
            MM${c4}MMMMMMM/`:MMM/  ${c3}MMMM
            MMMM              MMMM
            MMMM              MMMM
-           "\"\""              "\"\""
-""")
+           """"              """"
+''')
     

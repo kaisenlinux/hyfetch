@@ -2,13 +2,13 @@
 
 from . import AsciiArt
 
-puffos = AsciiArt(match=r'''"PuffOS"*''', color='3', ascii=r"""
+puffos = AsciiArt(match=r'''"PuffOS"*''', color='3', ascii=r'''
 ${c1}
               _,..._,m,
             ,/'      '"";
            /             ".
          ,'mmmMMMMmm.      \
-       _/-"^^^^^"\""%#%mm,   ;
+       _/-"^^^^^"""%#%mm,   ;
  ,m,_,'              "###)  ;,
 (###%                 \#/  ;##mm.
  ^#/  __        ___    ;  (######)
@@ -16,5 +16,5 @@ ${c1}
  _; (#\"//     \"/#)  ;  ,/
 @##\ \##/   =   `"=" ,;mm/
 `\##>.____,...,____,<####@
-""")
+''')
     

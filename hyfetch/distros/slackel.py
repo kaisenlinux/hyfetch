@@ -2,14 +2,14 @@
 
 from . import AsciiArt
 
-slackel = AsciiArt(match=r'''"Slackel"*''', color='3', ascii=r"""
+slackel = AsciiArt(match=r'''"Slackel"*''', color='3', ascii=r'''
 ${c1}              _aawmmmmmwwaaaaas,,,_.
            .ammmmm###mmmmmmm###BQmm##mws
          .am###mmBmBmBmBmBmBmmmmm#mmmm#2
         <q###mmBmBmBmBmBmBmBmBmBmBmmBmZ`
        um#mmmBmBm##U##mmBmBmBmWmmBmWm#(
      .wm#mmBBmm#Y~   ~XmBmBmWmmmmmBm#e
-    .dm#mmWmm#Z'      ]#mBmBmmBZ!"\"\""`
+    .dm#mmWmm#Z'      ]#mBmBmmBZ!""""`
    .dm#mmBmm#2`       ]mmmBmBm#2
    jm#mmWmm#2`        dmmBmBmB#(
   )m##mBmmWZ`        )##mBmBmmZ
@@ -25,5 +25,5 @@ XBmBmBmBmm6s_aum##mmBmBm&^
  )ZmBmBmmmBmBmmBmB##!`
   -4U#mBmWmBmBm##2"
     -!!XU##US*?"-
-""")
+''')
     

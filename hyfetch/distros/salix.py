@@ -2,7 +2,7 @@
 
 from . import AsciiArt
 
-salix = AsciiArt(match=r'''"Salix"*''', color='2', ascii=r"""
+salix = AsciiArt(match=r'''"Salix"*''', color='2', ascii=r'''
 ${c1}              __s_aaaaaaaaauuoXSSSSSSSS:
           ._xSSSSSSSSSSSSSSSSSSSSSSSSSS:
         _aSSSSSSSSSSSSSSSSSSSSSSSSSSSSS:
@@ -15,13 +15,13 @@ ${c1}              __s_aaaaaaaaauuoXSSSSSSSS:
   oSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS;
  :XSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS;
  {SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
- -"\"\""\"\""\"\""\"\""\"\""\"\""\"\""\"\""\"\""\"\""\"\"\""'
+ -"""""""""""""""""""""""""""""""""""'
 
  <assssssssssssssssssssssssssssssss>
  nSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS}
  nSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS}`
  XSSSSSSSSSSSSSSSSSSSSSSSSSSSS"`
  SSSSSSSSSSSSSSSSSSSSSSSSS!"`
--"\"\""\"\""\"\""\"\""\"\""\"\""\"\""`
-""")
+-""""""""""""""""""""""`
+''')
     
